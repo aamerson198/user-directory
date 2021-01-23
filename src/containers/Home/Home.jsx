@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import JumboTron from "../c";
+import JumboTron from "../../components/JumboTron/JumboTron";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
