@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import JumboTron from "../c";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -18,9 +19,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col">
-          <h1 className="text-center">Welcome to Our User Directory Page.</h1>
-        </div>
+        <JumboTron />
       </div>
       <div className="row">
         <table className="table sortable table-striped">
@@ -37,14 +36,12 @@ const Home = () => {
             {users.map((user) => (
               <tr>
                 <th scope="row">
-        <img alt="User Pic" src={user.picture.medium} />
-      </th>
+                  <img alt="User Pic" src={user.picture.medium} />
+                </th>
                 <td>{user.name.first}</td>
                 <td>{user.name.last}</td>
                 <td>{user.email}</td>
                 <td>{user.location.country}</td>
-
-                
               </tr>
             ))}
             ;
