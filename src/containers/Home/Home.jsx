@@ -30,16 +30,20 @@ const Home = () => {
               <th scope="col">First</th>
               <th scope="col">Last</th>
               <th scope="col">Email</th>
+              <th scope="col">Location</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr>
-                <th scope="row">{user.picture.medium}</th>
+                <th scope="row">
+        <img alt="User Pic" src={user.picture.medium} />
+      </th>
                 <td>{user.name.first}</td>
                 <td>{user.name.last}</td>
                 <td>{user.email}</td>
-                
+                <td>{user.location.country}</td>
+
                 
               </tr>
             ))}
