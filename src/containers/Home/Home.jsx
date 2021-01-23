@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import JumboTron from "../../components/JumboTron/JumboTron";
-
+import Search from "../../components/Search/Search";
 const Home = () => {
   const [users, setUsers] = useState([]);
-
+  const [alteredUsers, setAlteredUsers] = useState([]);
   useEffect(() => {
     axios
       .get("https://randomuser.me/api/?results=20")
       .then((response) => {
         console.log(response.data.results);
         setUsers(response.data.results);
+        setAlteredUsers(response.data.results);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  const searchResults = (e) => {
+    const search = e.target.value;
+
+    if (search === "") {
+      setAlteredUsers(users);
+      return;
+    }
+    const searchResults = [...users].filter((user) => {
+      return (
+        user.name.first.toLowerCase().includes(search.toLowerCase()) ||
+        user.name.last.toLowerCase().includes(search.toLowerCase()) ||
+        user.location.country.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.includes(search.toLowerCase())
+      );
+    });
+    setAlteredUsers(searchResults);
+  };
+
   return (
     <div className="container">
       <div className="row">
         <JumboTron />
+        <Search onChange={searchResults} />
       </div>
+
       <div className="row">
         <table className="table sortable table-striped">
           <thead>
@@ -33,7 +55,7 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {alteredUsers.map((user) => (
               <tr>
                 <th scope="row">
                   <img alt="User Pic" src={user.picture.medium} />
