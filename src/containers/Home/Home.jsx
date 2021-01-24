@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 const Home = () => {
   const [users, setUsers] = useState([]);
   const [alteredUsers, setAlteredUsers] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://randomuser.me/api/?results=20")
@@ -39,14 +40,15 @@ const Home = () => {
   const clickSortUsers = () => {
     const sortUsers = [...users];
     const sortedUsers = sortUsers.sort((a, b) => {
-      if (a.name.last < b.name.last) {
+      if (a.users.name.last < b.users.name.last) {
         return users.direction === "ascending" ? 1 : -1;
-      } else if (a.name.last > b.name.last) {
+      } else if (a.users.name.last > b.users.name.last) {
         return users.direction === "descending" ? -1 : 1;
       }
       return 0;
     });
     setUsers(sortedUsers);
+    console.log(sortedUsers);
   };
 
   return (
@@ -62,7 +64,7 @@ const Home = () => {
             <tr>
               <th scope="col">Image</th>
               <th scope="col">First</th>
-              <th scope="col" onClick={clickSortUsers}>
+              <th scope="col" onClick={clickSortUsers} id="nameSort">
                 Last
               </th>
               <th scope="col">Email</th>
