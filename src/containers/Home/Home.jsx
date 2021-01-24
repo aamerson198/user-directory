@@ -36,6 +36,19 @@ const Home = () => {
     setAlteredUsers(searchResults);
   };
 
+  const clickSortUsers = () => {
+    const sortUsers = [...users];
+    const sortedUsers = sortUsers.sort((a, b) => {
+      if (a.name.last < b.name.last) {
+        return users.direction === "ascending" ? 1 : -1;
+      } else if (a.name.last > b.name.last) {
+        return users.direction === "descending" ? -1 : 1;
+      }
+      return 0;
+    });
+    setUsers(sortedUsers);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -49,7 +62,9 @@ const Home = () => {
             <tr>
               <th scope="col">Image</th>
               <th scope="col">First</th>
-              <th scope="col">Last</th>
+              <th scope="col" onClick={clickSortUsers}>
+                Last
+              </th>
               <th scope="col">Email</th>
               <th scope="col">Location</th>
             </tr>
